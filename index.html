@@ -125,6 +125,11 @@ function rgbToHsv(r, g, b) {
       if (h >= 345 && h <= 360 || h >= 0 && h <= 15) return "Red"; 
       return "Other Color";
     }
+    function rgbTopH(r) {
+    pH = -0.0277*r + 9.27;
+    return pH;
+ };
+
     
     canvas.onclick = function(event) { // this creates an event that happens when a pixel on the canvas is clicked.
       const rect = canvas.getBoundingClientRect(); // returns the size of the element and its position relative to the viewport
@@ -134,10 +139,13 @@ function rgbToHsv(r, g, b) {
       const pixel = ctx.getImageData(x, y, 1, 1).data;
       const [h, s, v] = rgbToHsv(pixel[0], pixel[1], pixel[2]);
      const colorName = getColorName(h, s, v);
+     const pH = rgbTopH(pixel[0]);
    
       message.innerText = "HSV values= " + Math.round(h) + ", " + Math.round(s) + ", " + Math.round(v);
 	message2.innerText = "RGB values= " + Math.round(pixel[0]) + ", " + Math.round(pixel[1]) + ", " + Math.round(pixel[2]);
 	    message3.innerText = "Color Name= " + colorName;
+      message4.innerText = "Predicted pH = " + pH.toFixed(0);
+
     }; 
 // color that is tapped and detected is shown below the selected photo
    
